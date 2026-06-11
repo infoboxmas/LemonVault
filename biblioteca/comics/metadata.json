@@ -1,1 +1,13 @@
-{}
+{
+  "civilwar#1.pdf": {
+    "titulo": "Civil War #1",
+    "descripcion": "Civil War, un evento de Marvel Comics, presenta a Spider-Man, los Nuevos Vengadores, los Cuatro Fantásticos, los X-Men y todo el panteón Marvel. ¡Civil War, el crossover que reescribe las reglas, comienza aquí!",
+    "thumbnail": "_system/img/civil-war-1.jpg"
+  },
+
+  "batman.pdf": {
+    "titulo": "Batman Año Uno",
+    "descripcion": "Comic clásico de Batman",
+    "thumbnail": "_system/img/batman.jpg"
+  }
+}
