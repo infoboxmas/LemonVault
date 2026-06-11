@@ -1,1 +1,13 @@
-{}
+{
+  "La Carreta fantasma-Animacion.mp4": {
+    "titulo": "La Carreta Fantasma",
+    "descripcion": "Animacion hecha con herramientas como adobe premier y after effect",
+    "thumbnail": "_system/img/multimediaimg/carreta.png"
+  },
+
+  "batman.pdf": {
+    "titulo": "Batman Año Uno",
+    "descripcion": "Comic clásico de Batman",
+    "thumbnail": "_system/img/batman.jpg"
+  }
+}
