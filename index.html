@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════
-   LEMONBOX V2.6 — CSS
+   LEMONBOX V2.7 — CSS
 ═══════════════════════════════════════════ */
 :root {
   --bg:#080b10; --surface:#0e1219; --card:#131923;
@@ -118,13 +118,14 @@ header{position:sticky;top:0;z-index:300;background:rgba(8,11,16,.93);
   border-radius:13px 13px 0 0;opacity:0;transition:opacity .2s;}
 .card:hover::before{opacity:1;}
 
-/* fav btn on card */
-.c-fav{position:absolute;top:7px;right:7px;z-index:3;width:26px;height:26px;
+/* fav btn on card — MEJORA 3: estrella ☆/★ */
+.c-fav{position:absolute;top:7px;right:7px;z-index:3;width:28px;height:28px;
   border-radius:6px;border:none;cursor:pointer;
   background:rgba(8,11,16,.72);backdrop-filter:blur(4px);
-  display:grid;place-items:center;font-size:.78rem;transition:all .2s;opacity:0;}
+  display:grid;place-items:center;font-size:1rem;line-height:1;
+  transition:all .2s;opacity:0;color:#fff;}
 .card:hover .c-fav,.c-fav.on{opacity:1;}
-.c-fav.on{background:rgba(250,204,21,.18);}
+.c-fav.on{background:rgba(250,204,21,.18);color:var(--lemon);}
 
 /* source badge */
 .c-src{position:absolute;top:7px;left:7px;z-index:3;
@@ -133,13 +134,16 @@ header{position:sticky;top:0;z-index:300;background:rgba(8,11,16,.93);
 .c-src.gh {background:rgba(8,11,16,.75);color:var(--lemon);border:1px solid rgba(250,204,21,.3);}
 .c-src.ext{background:rgba(8,11,16,.75);color:#60a5fa;border:1px solid rgba(96,165,250,.3);}
 
-/* thumb */
+/* thumb — MEJORA 2: contain + blurred bg */
 .c-thumb{width:100%;height:120px;overflow:hidden;flex-shrink:0;
-  background:var(--surface);border-bottom:1px solid var(--border);}
-.c-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;}
-.card:hover .c-thumb img{transform:scale(1.05);}
+  position:relative;border-bottom:1px solid var(--border);}
+.c-thumb-bg{position:absolute;inset:0;background-size:cover;background-position:center;
+  filter:blur(14px) brightness(.5) saturate(1.4);transform:scale(1.1);z-index:0;}
+.c-thumb img{position:relative;z-index:1;width:100%;height:100%;
+  object-fit:contain;display:block;transition:transform .3s;}
+.card:hover .c-thumb img{transform:scale(1.03);}
 .c-thumb-ph{width:100%;height:100%;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:4px;}
+  align-items:center;justify-content:center;gap:4px;position:relative;z-index:1;}
 .ph-ic{font-size:2rem;}
 .ph-ft{font-family:'Space Mono',monospace;font-size:.52rem;color:var(--dim);letter-spacing:1px;}
 
@@ -197,21 +201,29 @@ header{position:sticky;top:0;z-index:300;background:rgba(8,11,16,.93);
 .dm{background:var(--surface);border:1px solid var(--border);border-radius:18px;
   width:100%;max-width:580px;max-height:93vh;overflow-y:auto;
   animation:mIn .22s ease;-webkit-overflow-scrolling:touch;}
-.dm-hero{width:100%;height:210px;overflow:hidden;border-radius:18px 18px 0 0;
+.dm-hero{width:100%;height:220px;overflow:hidden;border-radius:18px 18px 0 0;
   position:relative;background:var(--card);border-bottom:1px solid var(--border);flex-shrink:0;}
-.dm-hero img{width:100%;height:100%;object-fit:cover;}
-.dm-hero-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4.5rem;}
+/* blurred bg behind hero image */
+.dm-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;
+  filter:blur(18px) brightness(.45) saturate(1.5);transform:scale(1.1);z-index:0;}
+.dm-hero img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;display:block;}
+.dm-hero-ph{position:relative;z-index:1;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4.5rem;}
 .dm-close{position:absolute;top:11px;right:11px;width:32px;height:32px;border-radius:8px;
   background:rgba(8,11,16,.82);backdrop-filter:blur(4px);border:1px solid var(--border);
   cursor:pointer;color:var(--text);font-size:.88rem;display:grid;place-items:center;z-index:2;}
 .dm-close:hover{background:var(--surface);}
+/* MEJORA 3: star fav button */
 .dm-fav-btn{position:absolute;top:11px;right:50px;width:32px;height:32px;border-radius:8px;
   background:rgba(8,11,16,.82);backdrop-filter:blur(4px);border:1px solid var(--border);
-  cursor:pointer;font-size:.88rem;display:grid;place-items:center;z-index:2;transition:all .2s;}
-.dm-fav-btn.on{background:rgba(250,204,21,.15);border-color:rgba(250,204,21,.4);}
+  cursor:pointer;font-size:1rem;line-height:1;color:#fff;display:grid;place-items:center;z-index:2;transition:all .2s;}
+.dm-fav-btn.on{background:rgba(250,204,21,.18);border-color:rgba(250,204,21,.4);color:var(--lemon);}
 .dm-body{padding:20px 22px 26px;display:flex;flex-direction:column;gap:14px;}
 .dm-title{font-family:'Space Mono',monospace;font-size:1.05rem;font-weight:700;line-height:1.3;}
-.dm-desc{font-size:.85rem;color:var(--muted);line-height:1.6;}
+/* MEJORA 5: scrollable description */
+.dm-desc{font-size:.85rem;color:var(--muted);line-height:1.6;
+  max-height:120px;overflow-y:auto;scrollbar-width:thin;padding-right:4px;}
+.dm-desc::-webkit-scrollbar{width:3px;}
+.dm-desc::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
 .dm-meta{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
 .dm-mi{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px;}
 .dm-ml{font-family:'Space Mono',monospace;font-size:.55rem;color:var(--dim);
@@ -233,10 +245,27 @@ header{position:sticky;top:0;z-index:300;background:rgba(8,11,16,.93);
 /* viewer inside modal */
 .viewer{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
 .viewer iframe{width:100%;height:440px;display:block;border:none;}
-.viewer img   {width:100%;max-height:440px;object-fit:contain;display:block;}
-.viewer video {width:100%;max-height:380px;display:block;}
+.viewer img   {width:100%;max-height:440px;object-fit:contain;display:block;background:#000;}
+.viewer video {width:100%;max-height:380px;display:block;background:#000;}
 .viewer audio {width:100%;display:block;padding:12px;}
 .viewer-info  {padding:14px;font-size:.82rem;color:var(--muted);line-height:1.6;}
+
+/* MEJORA 1: confirm download modal */
+.confirm-modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  width:100%;max-width:360px;animation:mIn .2s ease;padding:24px;display:flex;flex-direction:column;gap:16px;}
+.confirm-modal h3{font-family:'Space Mono',monospace;font-size:.88rem;font-weight:700;}
+.confirm-file{font-size:.82rem;color:var(--muted);background:var(--card);
+  border:1px solid var(--border);border-radius:8px;padding:10px 13px;word-break:break-all;line-height:1.5;}
+.confirm-q{font-size:.84rem;color:var(--text);}
+.confirm-acts{display:flex;gap:8px;justify-content:flex-end;}
+.btn-cancel{font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;
+  padding:8px 14px;border-radius:7px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);cursor:pointer;transition:all .18s;}
+.btn-cancel:hover{color:var(--text);border-color:var(--dim);}
+.btn-confirm-dl{font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;
+  padding:8px 14px;border-radius:7px;border:none;cursor:pointer;
+  background:var(--lemon);color:var(--bg);transition:opacity .18s;}
+.btn-confirm-dl:hover{opacity:.85;}
 
 /* ═══ STATS MODAL ═══ */
 .sm{background:var(--surface);border:1px solid var(--border);border-radius:18px;
@@ -291,7 +320,7 @@ header{position:sticky;top:0;z-index:300;background:rgba(8,11,16,.93);
 <header>
   <div class="logo">
     <div class="logo-icon">🍋</div>
-    <div class="logo-name">Lemon<span>Box</span><span class="logo-ver">V2.6</span></div>
+    <div class="logo-name">Lemon<span>Box</span><span class="logo-ver">V2.7</span></div>
   </div>
   <div class="hdr-right">
     <span class="sync-badge loading" id="syncBadge">Cargando…</span>
@@ -361,6 +390,19 @@ header{position:sticky;top:0;z-index:300;background:rgba(8,11,16,.93);
 <!-- TOASTS -->
 <div class="tc" id="tc"></div>
 
+<!-- MEJORA 1: confirm download modal -->
+<div class="ov" id="confirmOv" onclick="if(event.target.id==='confirmOv')closeConfirm()">
+  <div class="confirm-modal">
+    <h3>⬇ Descargar archivo</h3>
+    <div class="confirm-file" id="confirmFileName"></div>
+    <div class="confirm-q">¿Deseas descargar este archivo?</div>
+    <div class="confirm-acts">
+      <button class="btn-cancel" onclick="closeConfirm()">Cancelar</button>
+      <a class="btn-confirm-dl" id="confirmDlBtn" href="#" download>Descargar</a>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ═══════════════════════════════════════════
    LEMONBOX V2.5 — JAVASCRIPT
@@ -378,40 +420,53 @@ const CFG = {
 const API  = `https://api.github.com/repos/${CFG.owner}/${CFG.repo}/contents`;
 const RAW  = `https://raw.githubusercontent.com/${CFG.owner}/${CFG.repo}/${CFG.branch}`;
 
-// ── FORMAT & TYPE DETECTION ─────────────────
+// ── FORMAT & TYPE DETECTION — MEJORA 7 ──────
 const TYPE_MAP = {
   // books
-  pdf:'book',epub:'book',
+  pdf:'book', epub:'book', mobi:'book', azw3:'book',
   // comics
-  cbz:'comic',cbr:'comic',
+  cbz:'comic', cbr:'comic',
   // images
-  jpg:'image',jpeg:'image',png:'image',webp:'image',gif:'image',
+  jpg:'image', jpeg:'image', png:'image', webp:'image',
+  gif:'image', bmp:'image', svg:'image',
   // audio
-  mp3:'audio',wav:'audio',flac:'audio',ogg:'audio',aac:'audio',
+  mp3:'audio', wav:'audio', flac:'audio', ogg:'audio', aac:'audio', m4a:'audio',
   // video
-  mp4:'video',webm:'video',mkv:'video',avi:'video',mov:'video',
-  // apps
-  apk:'app',exe:'app',msi:'app',dmg:'app',
+  mp4:'video', webm:'video', mkv:'video', avi:'video', mov:'video',
+  // apps / android
+  apk:'app', xapk:'app', apks:'app', aab:'app',
+  exe:'app', msi:'app', dmg:'app',
+  // minecraft
+  mcaddon:'minecraft', mcpack:'minecraft', mcworld:'minecraft', mctemplate:'minecraft',
   // archives
-  zip:'archive',rar:'archive','7z':'archive',tar:'archive',
+  zip:'archive', rar:'archive', '7z':'archive', tar:'archive', gz:'archive',
+  // roms / games
+  iso:'rom', rom:'rom', nsp:'rom', xci:'rom', cia:'rom', '3ds':'rom',
   // docs
-  txt:'doc',md:'doc',docx:'doc',xlsx:'doc',pptx:'doc',
+  txt:'doc', md:'doc', docx:'doc', xlsx:'doc', pptx:'doc',
 };
 const TYPE_ICONS = {
-  book:'📚',comic:'📖',image:'🖼',audio:'🎵',video:'🎬',
-  app:'📱',archive:'📦',doc:'📝',link:'🔗',unknown:'📄',
+  book:'📚', comic:'📖', image:'🖼', audio:'🎵', video:'🎬',
+  app:'📱', minecraft:'🟩', archive:'📦', rom:'🕹', doc:'📝',
+  link:'🔗', unknown:'📄',
 };
 const TYPE_LABELS = {
-  book:'Libro',comic:'Cómic',image:'Imagen',audio:'Audio',video:'Video',
-  app:'Aplicación',archive:'Archivo',doc:'Documento',link:'Enlace',unknown:'Archivo',
+  book:'Libro', comic:'Cómic', image:'Imagen', audio:'Audio', video:'Video',
+  app:'Aplicación', minecraft:'Minecraft', archive:'Archivo comprimido',
+  rom:'ROM / Juego', doc:'Documento', link:'Enlace externo', unknown:'Archivo desconocido',
+};
+// Smart action label per type — MEJORA 9
+const TYPE_ACTION = {
+  book:'📖 Leer', comic:'📖 Leer', image:'🖼 Ver', audio:'▶ Reproducir',
+  video:'▶ Reproducir', app:'↗ Abrir', minecraft:'↗ Abrir',
+  archive:'⬇ Descargar', rom:'⬇ Descargar', doc:'📄 Ver',
+  link:'↗ Abrir', unknown:'↗ Abrir',
 };
 
 function detectType(name='', url=''){
   const ext = (name.split('.').pop()||'').toLowerCase();
-  if(TYPE_MAP[ext]) return { type:TYPE_MAP[ext], ext:ext.toUpperCase(), raw:ext };
-  // if no extension but has url → link
-  if(url) return { type:'link', ext:'', raw:'' };
-  return { type:'unknown', ext:'', raw:'' };
+  const type = TYPE_MAP[ext] || (url&&!ext ? 'link' : 'unknown');
+  return { type, ext: ext ? ext.toUpperCase() : '', raw: ext };
 }
 
 // ── PLATFORM AUTO-DETECTION ─────────────────
@@ -713,17 +768,22 @@ function cardHTML(item, i){
   const plat  = PLAT_CFG[item.platform]||PLAT_CFG.ext;
   const tIcon = TYPE_ICONS[item.type]||TYPE_ICONS.unknown;
   const isFav = favorites.has(item.id);
-  const isDL  = isDirect(item);
+  const fmtDisplay = item.format || (item.ext||'').toUpperCase() || '—';
+  // Smart action label — MEJORA 9
+  const actionLabel = (TYPE_ACTION[item.type]||'↗ Abrir').split(' ').slice(1).join(' ') || 'Ver';
 
+  // MEJORA 2: contain + blurred bg
   let thumbHTML;
   if(item.thumb){
-    thumbHTML=`<div class="c-thumb"><img src="${esc(item.thumb)}" alt="${esc(item.name)}"
-      onerror="this.parentElement.innerHTML='<div class=\\'c-thumb-ph\\'style=\\'background:${bg}\\'><div class=\\'ph-ic\\'>${tIcon}</div><div class=\\'ph-ft\\'>${esc(item.format)}</div></div>'">
+    thumbHTML=`<div class="c-thumb">
+      <div class="c-thumb-bg" style="background-image:url('${esc(item.thumb)}')"></div>
+      <img src="${esc(item.thumb)}" alt="${esc(item.name)}"
+        onerror="this.parentElement.innerHTML='<div class=\\'c-thumb-ph\\'style=\\'background:${bg}\\'><div class=\\'ph-ic\\'>${tIcon}</div><div class=\\'ph-ft\\'>${esc(fmtDisplay)}</div></div>'">
     </div>`;
   } else {
     thumbHTML=`<div class="c-thumb"><div class="c-thumb-ph" style="background:${bg}">
       <div class="ph-ic">${tIcon}</div>
-      <div class="ph-ft">${esc(item.format)}</div>
+      <div class="ph-ft">${esc(fmtDisplay)}</div>
     </div></div>`;
   }
 
@@ -732,14 +792,13 @@ function cardHTML(item, i){
     : '<span class="c-src ext">EXT</span>';
 
   return `
-  <div class="card" data-id="${esc(item.id)}"
-    style="--cat-c:${col};animation-delay:${Math.min(i,18)*32}ms"
-    onclick="openDM('${esc(item.id)}')" >
+  <div class="card" data-id="${esc(item.id)}" style="animation-delay:${Math.min(i,18)*32}ms"
+    onclick="openDM('${esc(item.id)}')">
     <style>.card[data-id="${esc(item.id)}"]::before{background:${col};}</style>
     ${srcBadge}
     <button class="c-fav ${isFav?'on':''}"
       onclick="event.stopPropagation();toggleFav('${esc(item.id)}')" title="Favorito">
-      ${isFav?'⭐':'☆'}
+      ${starHTML(isFav)}
     </button>
     ${thumbHTML}
     <div class="c-body">
@@ -751,17 +810,16 @@ function cardHTML(item, i){
       <div class="c-desc">${item.desc?esc(item.desc):'<span style="opacity:.28;font-style:italic">Sin descripción</span>'}</div>
       <div class="c-chips">
         <span class="chip ${plat.chip}">${plat.l}</span>
-        ${item.format?`<span class="chip ch-fmt">${esc(item.format)}</span>`:''}
+        ${fmtDisplay&&fmtDisplay!=='—'?`<span class="chip ch-fmt">${esc(fmtDisplay)}</span>`:''}
       </div>
     </div>
     <div class="c-foot" onclick="event.stopPropagation()">
       <button class="btn-ver" style="background:${col};color:var(--bg)"
         onclick="event.stopPropagation();openDM('${esc(item.id)}')">
-        ${tIcon} Ver
+        ${tIcon} ${actionLabel}
       </button>
-      <a class="btn-dl" href="${esc(item.url)}"
-        ${isDL?'download':'target="_blank" rel="noopener"'}
-        title="Descargar">⬇</a>
+      <button class="btn-dl" title="Descargar"
+        onclick="event.stopPropagation();askDownload(DB.find(x=>x.id==='${esc(item.id)}'))">⬇</button>
     </div>
   </div>`;
 }
@@ -815,15 +873,42 @@ function toggleFavFilter(){
   renderGrid();
 }
 
-// ── FAVORITES ────────────────────────────────
+// ── MEJORA 1: CONFIRM DOWNLOAD ───────────────
+let _pendingDL = null;
+function askDownload(item){
+  const fname = item.name + (item.ext ? '.'+item.ext.toLowerCase() : '');
+  document.getElementById('confirmFileName').textContent = fname;
+  const btn = document.getElementById('confirmDlBtn');
+  btn.href = item.url || '#';
+  // direct download only for github raw
+  if(isDirect(item)) btn.setAttribute('download','');
+  else { btn.removeAttribute('download'); btn.target='_blank'; btn.rel='noopener'; }
+  _pendingDL = item;
+  document.getElementById('confirmOv').classList.add('open');
+  // MEJORA 6: push history state
+  history.pushState({lbModal:'confirm'},'');
+}
+function closeConfirm(){
+  document.getElementById('confirmOv').classList.remove('open');
+  _pendingDL = null;
+}
+
+// ── MEJORA 3: FAVORITES — star ★/☆ ──────────
+function starHTML(on){ return on ? '★' : '☆'; }
+
 function toggleFav(id){
-  favorites.has(id)?favorites.delete(id):favorites.add(id);
-  saveFavs(); renderGrid();
+  favorites.has(id) ? favorites.delete(id) : favorites.add(id);
+  saveFavs();
+  // update card badge if visible
+  const badge = document.querySelector(`.card[data-id="${CSS.escape(id)}"] .c-fav`);
+  if(badge){ const on=favorites.has(id); badge.className='c-fav'+(on?' on':''); badge.textContent=starHTML(on); }
+  // update detail modal fav btn if open
   if(detailId===id){
     const b=document.getElementById('dmFavBtn');
     const on=favorites.has(id);
-    b.classList.toggle('on',on); b.textContent=on?'⭐':'☆';
+    b.classList.toggle('on',on); b.textContent=starHTML(on);
   }
+  if(favOnly) renderGrid();
 }
 function toggleFavDM(){ if(detailId) toggleFav(detailId); }
 
@@ -835,36 +920,41 @@ function openDM(id){
   const bg   = cb(item.category);
   const plat = PLAT_CFG[item.platform]||PLAT_CFG.ext;
   const tIcon= TYPE_ICONS[item.type]||TYPE_ICONS.unknown;
-  const tLbl = TYPE_LABELS[item.type]||'Archivo';
+  const tLbl = TYPE_LABELS[item.type]||'Archivo desconocido';
   const isFav= favorites.has(id);
-  const isDL = isDirect(item);
+  const fmtDisplay = item.format||(item.ext||'').toUpperCase()||'—';
 
-  // Hero image
+  // MEJORA 2: hero with blurred bg + contain img
   const hero=document.getElementById('dmHero');
   [...hero.querySelectorAll(':not(.dm-close):not(.dm-fav-btn)')].forEach(e=>e.remove());
   if(item.thumb){
+    hero.insertAdjacentHTML('afterbegin',
+      `<div class="dm-hero-bg" style="background-image:url('${esc(item.thumb)}')"></div>`);
     const img=document.createElement('img');
-    img.src=item.thumb;
-    img.onerror=()=>{ img.remove(); hero.insertAdjacentHTML('afterbegin',`<div class="dm-hero-ph" style="background:${bg}">${tIcon}</div>`); };
-    hero.insertAdjacentElement('afterbegin',img);
+    img.src=item.thumb; img.style.cssText='position:relative;z-index:1;width:100%;height:100%;object-fit:contain;';
+    img.onerror=()=>{
+      img.remove();
+      hero.insertAdjacentHTML('afterbegin',`<div class="dm-hero-ph" style="background:${bg};position:relative;z-index:1">${tIcon}</div>`);
+    };
+    hero.appendChild(img);
   } else {
     hero.insertAdjacentHTML('afterbegin',`<div class="dm-hero-ph" style="background:${bg}">${tIcon}</div>`);
   }
 
+  // MEJORA 3: star fav
   const fb=document.getElementById('dmFavBtn');
-  fb.classList.toggle('on',isFav); fb.textContent=isFav?'⭐':'☆';
+  fb.classList.toggle('on',isFav); fb.textContent=starHTML(isFav);
 
   document.getElementById('dmTitle').textContent=item.name;
 
   const dd=document.getElementById('dmDesc');
   dd.textContent=item.desc||''; dd.style.display=item.desc?'':'none';
 
-  // Meta grid
   const metaRows=[
     {l:'Categoría',   v:cap(item.category)},
     {l:'Subcategoría',v:item.sub||'—'},
     {l:'Tipo',        v:tLbl},
-    {l:'Formato',     v:item.format||'—'},
+    {l:'Formato',     v:fmtDisplay},
     {l:'Plataforma',  v:plat.l},
     item.size?{l:'Tamaño',v:fmtSize(item.size)}:null,
     item.fecha?{l:'Fecha',v:item.fecha}:null,
@@ -872,7 +962,6 @@ function openDM(id){
   document.getElementById('dmMeta').innerHTML=metaRows.map(m=>`
     <div class="dm-mi"><div class="dm-ml">${m.l}</div><div class="dm-mv">${m.v}</div></div>`).join('');
 
-  // Tags
   const allTags=[item.category,item.sub,...item.tags].filter(Boolean);
   const dt=document.getElementById('dmTags');
   dt.innerHTML=allTags.map(t=>`<span class="tag" style="color:${col};background:${bg};border-color:${col}40">${esc(t)}</span>`).join('');
@@ -880,56 +969,122 @@ function openDM(id){
 
   document.getElementById('dmUrl').textContent=item.url||'Sin URL';
 
-  // Smart viewer
+  // MEJORA 8: Smart viewer
   const dv=document.getElementById('dmViewer');
   dv.innerHTML='';
-  const viewerHTML=buildViewer(item);
+  const {html:viewerHTML, failed} = buildViewer(item);
   if(viewerHTML) dv.innerHTML=viewerHTML;
 
-  // Actions
-  const dlAttr=isDL?'download':`target="_blank" rel="noopener"`;
-  const dlLabel=isDL?'⬇ Descargar':'↗ Abrir';
-  document.getElementById('dmActs').innerHTML=`
-    <a class="dmbtn dmbtn-p" href="${esc(item.url)}" ${dlAttr}
-      style="background:${col};color:var(--bg)">${tIcon} Ver</a>
-    <a class="dmbtn dmbtn-g" href="${esc(item.url)}" ${dlAttr}>${dlLabel}</a>`;
+  // MEJORA 9: smart actions — no duplicates, label per type
+  const primaryLabel = TYPE_ACTION[item.type] || `${tIcon} Abrir`;
+  const actsEl = document.getElementById('dmActs');
+
+  // Types that can only be downloaded, no view action needed
+  const dlOnly = ['archive','rom','app','minecraft'].includes(item.type);
+
+  if(dlOnly){
+    actsEl.innerHTML=`
+      <button class="dmbtn dmbtn-p" style="background:${col};color:var(--bg)"
+        onclick="askDownload(DB.find(i=>i.id==='${esc(id)}'))">⬇ Descargar</button>`;
+  } else {
+    // Primary action: open viewer or external
+    const isExt = item.platform !== 'github';
+    const primaryBtn = isExt
+      ? `<a class="dmbtn dmbtn-p" href="${esc(item.url)}" target="_blank" rel="noopener"
+           style="background:${col};color:var(--bg)">${primaryLabel}</a>`
+      : `<button class="dmbtn dmbtn-p" style="background:${col};color:var(--bg)"
+           onclick="document.getElementById('dmViewer').scrollIntoView({behavior:'smooth'})">${primaryLabel}</button>`;
+
+    // If viewer failed or ext, show fallback open btn
+    const fallback = (failed && !isExt)
+      ? `<a class="dmbtn dmbtn-g" href="${esc(item.url)}" target="_blank" rel="noopener">↗ Abrir externamente</a>`
+      : '';
+
+    actsEl.innerHTML=`
+      ${primaryBtn}
+      ${fallback}
+      <button class="dmbtn dmbtn-g" onclick="askDownload(DB.find(i=>i.id==='${esc(id)}'))">⬇ Descargar</button>`;
+  }
 
   document.getElementById('dmOv').classList.add('open');
   document.body.style.overflow='hidden';
+  // MEJORA 6: push history
+  history.pushState({lbModal:'detail'},'');
 }
 
+// MEJORA 4+8: smart viewer — returns {html, failed}
 function buildViewer(item){
-  const u=item.url||'';
-  const e=item.ext||'';
-  // Only inline-viewable types from GitHub raw or direct links
+  const u = item.url||'';
+  const e = (item.ext||'').toLowerCase();
   const canInline = item.platform==='github' || ['image','audio','video'].includes(item.type);
-  if(!canInline) return `<div class="viewer"><div class="viewer-info">
-    Este archivo está alojado en <strong>${PLAT_CFG[item.platform]?.l||'plataforma externa'}</strong>.<br>
-    Usa el botón <strong>Ver</strong> para abrirlo en su plataforma correspondiente.</div></div>`;
+
+  if(!canInline){
+    return { html:`<div class="viewer"><div class="viewer-info">
+      Este archivo está en <strong>${PLAT_CFG[item.platform]?.l||'plataforma externa'}</strong>.<br>
+      Usa el botón <strong>Abrir</strong> para acceder en su plataforma.</div></div>`, failed:false };
+  }
 
   if(item.type==='image')
-    return `<div class="viewer"><img src="${esc(u)}" alt="${esc(item.name)}" loading="lazy"></div>`;
+    return { html:`<div class="viewer"><img src="${esc(u)}" alt="${esc(item.name)}" loading="lazy"></div>`, failed:false };
 
   if(item.type==='audio')
-    return `<div class="viewer"><audio controls src="${esc(u)}"></audio></div>`;
+    return { html:`<div class="viewer"><audio controls src="${esc(u)}" style="width:100%;padding:12px"></audio></div>`, failed:false };
 
-  if(item.type==='video'&&['mp4','webm'].includes(e))
-    return `<div class="viewer"><video controls src="${esc(u)}"></video></div>`;
-
-  if(item.type==='book'&&e==='pdf'){
-    // PDF viewer via iframe (works for raw github or direct links)
-    const viewerUrl=`https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(u)}`;
-    return `<div class="viewer"><iframe src="${viewerUrl}" title="PDF Viewer"></iframe></div>`;
+  // MEJORA 4: video with full native controls
+  if(item.type==='video'){
+    if(['mp4','webm'].includes(e)){
+      return { html:`<div class="viewer">
+        <video controls src="${esc(u)}" style="width:100%;max-height:380px;background:#000;display:block">
+          Tu navegador no soporta este formato de video.
+        </video></div>`, failed:false };
+    }
+    // mkv, avi, mov — browser can't play natively
+    return { html:`<div class="viewer"><div class="viewer-info">
+      ⚠️ El formato <strong>${e.toUpperCase()}</strong> no puede reproducirse en el navegador.<br>
+      Descarga el archivo y ábrelo con VLC u otro reproductor.</div></div>`, failed:true };
   }
-  return '';
+
+  if(item.type==='book' && e==='pdf'){
+    const pdfUrl=`https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(u)}`;
+    return { html:`<div class="viewer"><iframe src="${esc(pdfUrl)}" title="PDF Viewer"></iframe></div>`, failed:false };
+  }
+
+  // For epub, comic, etc — no inline viewer yet
+  if(['epub','mobi','azw3','cbz','cbr'].includes(e)){
+    return { html:`<div class="viewer"><div class="viewer-info">
+      El formato <strong>${e.toUpperCase()}</strong> requiere una aplicación externa.<br>
+      Descarga el archivo y ábrelo con tu lector favorito.</div></div>`, failed:true };
+  }
+
+  return { html:'', failed:false };
 }
+
+// MEJORA 6: back button (mobile & browser) closes modals
+window.addEventListener('popstate', e => {
+  // Close whichever modal is open, outermost first
+  if(document.getElementById('confirmOv').classList.contains('open')){
+    closeConfirm(); return;
+  }
+  if(document.getElementById('dmOv').classList.contains('open')){
+    closeDM(); return;
+  }
+  if(document.getElementById('smOv').classList.contains('open')){
+    closeStats(); return;
+  }
+});
 
 function closeDM(){
   document.getElementById('dmOv').classList.remove('open');
   document.body.style.overflow=''; detailId=null;
 }
 
-// ── STATS ────────────────────────────────────
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('confirmOv').classList.contains('open')){ closeConfirm(); return; }
+    if(document.getElementById('dmOv').classList.contains('open')){ closeDM(); return; }
+    closeStats();
+  }
+});
 function openStats(){
   const total=DB.length;
   const favN=[...favorites].filter(id=>DB.find(i=>i.id===id)).length;
@@ -976,6 +1131,7 @@ function openStats(){
   document.getElementById('smOv').classList.add('open');
   document.body.style.overflow='hidden';
 }
+// ── STATS ────────────────────────────────────
 function noData(){ return `<p style="color:var(--muted);font-size:.78rem;padding:4px 0">Sin datos aún.</p>`; }
 function closeStats(){
   document.getElementById('smOv').classList.remove('open');
